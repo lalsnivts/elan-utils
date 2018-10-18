@@ -29,7 +29,7 @@ public class XMLCommonUtils {
     protected List<String> getAnnotationValues(Node node) throws XPathExpressionException {
         String annotationExpression = ".//ANNOTATION_VALUE";
         XPath xpath = XPathFactory.newInstance().newXPath();
-        NodeList nodeSet = (NodeList)xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
+        NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
         List<String> annotationValues = new ArrayList<String>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
             annotationValues.add(nodeSet.item(i).getTextContent());
@@ -37,7 +37,7 @@ public class XMLCommonUtils {
         return annotationValues;
     }
 
-    protected List<Node>getAnnotationNodesByTierNameReference(String tierName, String reference) throws XPathExpressionException{
+    protected List<Node> getAnnotationNodesByTierNameReference(String tierName, String reference) throws XPathExpressionException {
         for (int i = 0; i < this.allTiers.getLength(); i++) {
             Node node = this.allTiers.item(i);
             NamedNodeMap attributes = node.getAttributes();
@@ -50,31 +50,30 @@ public class XMLCommonUtils {
     }
 
 
-
-    protected String getAnnotationId(Node node) throws XPathExpressionException{
+    protected String getAnnotationId(Node node) throws XPathExpressionException {
         String annotationIdExpression = ".//@ANNOTATION_ID";
         XPath xpath = XPathFactory.newInstance().newXPath();
-        Node annotationIdNode = (Node)xpath.evaluate(annotationIdExpression, node, XPathConstants.NODE);
-        if(annotationIdNode == null){
+        Node annotationIdNode = (Node) xpath.evaluate(annotationIdExpression, node, XPathConstants.NODE);
+        if (annotationIdNode == null) {
             return null;
         }
         return annotationIdNode.getTextContent();
     }
 
-    protected String getTimeSlot(Node node) throws XPathExpressionException{
+    protected String getTimeSlot(Node node) throws XPathExpressionException {
         String annotationIdExpression = ".//@TIME_SLOT_REF1";
         XPath xpath = XPathFactory.newInstance().newXPath();
-        Node annotationIdNode = (Node)xpath.evaluate(annotationIdExpression, node, XPathConstants.NODE);
-        if(annotationIdNode == null){
+        Node annotationIdNode = (Node) xpath.evaluate(annotationIdExpression, node, XPathConstants.NODE);
+        if (annotationIdNode == null) {
             return null;
         }
         return annotationIdNode.getTextContent();
     }
 
-    protected List<Node>getAnnotationNodesByReference(Node node, String reference) throws XPathExpressionException{
-        String annotationExpression = ".//ANNOTATION/REF_ANNOTATION[@ANNOTATION_REF=\""+reference+"\"]";
+    protected List<Node> getAnnotationNodesByReference(Node node, String reference) throws XPathExpressionException {
+        String annotationExpression = ".//ANNOTATION/REF_ANNOTATION[@ANNOTATION_REF=\"" + reference + "\"]";
         XPath xpath = XPathFactory.newInstance().newXPath();
-        NodeList nodeSet = (NodeList)xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
+        NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
         List<Node> annotations = new ArrayList<Node>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
             annotations.add(nodeSet.item(i));
@@ -83,11 +82,10 @@ public class XMLCommonUtils {
     }
 
 
-
-    protected List<Node> getAnnotations(Node node) throws XPathExpressionException{
+    protected List<Node> getAnnotations(Node node) throws XPathExpressionException {
         String annotationExpression = ".//ANNOTATION";
         XPath xpath = XPathFactory.newInstance().newXPath();
-        NodeList nodeSet = (NodeList)xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
+        NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
         List<Node> annotations = new ArrayList<Node>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
             annotations.add(nodeSet.item(i));
@@ -104,8 +102,7 @@ public class XMLCommonUtils {
     }
 
 
-
-    protected List<String>getAnnotationValuesByTierName(String tierName) throws XPathExpressionException{
+    protected List<String> getAnnotationValuesByTierName(String tierName) throws XPathExpressionException {
         for (int i = 0; i < this.allTiers.getLength(); i++) {
             Node node = this.allTiers.item(i);
             NamedNodeMap attributes = node.getAttributes();
@@ -117,7 +114,7 @@ public class XMLCommonUtils {
         return null;
     }
 
-    protected List<Node>getAnnotationNodesByTierName(String tierName) throws XPathExpressionException{
+    protected List<Node> getAnnotationNodesByTierName(String tierName) throws XPathExpressionException {
         for (int i = 0; i < allTiers.getLength(); i++) {
             Node node = allTiers.item(i);
             NamedNodeMap attributes = node.getAttributes();
@@ -130,7 +127,7 @@ public class XMLCommonUtils {
     }
 
 
-    protected Node getOneAnnotationNodeByTierNameReference(String tierName, String reference) throws XPathExpressionException{
+    protected Node getOneAnnotationNodeByTierNameReference(String tierName, String reference) throws XPathExpressionException {
         for (int i = 0; i < this.allTiers.getLength(); i++) {
             Node node = this.allTiers.item(i);
             NamedNodeMap attributes = node.getAttributes();
@@ -142,10 +139,10 @@ public class XMLCommonUtils {
         return null;
     }
 
-    protected Node getOneAnnotationNode(Node node, String reference) throws XPathExpressionException{
-        String annotationExpression = ".//ANNOTATION/REF_ANNOTATION[@ANNOTATION_REF=\""+reference+"\"]";
+    protected Node getOneAnnotationNode(Node node, String reference) throws XPathExpressionException {
+        String annotationExpression = ".//ANNOTATION/REF_ANNOTATION[@ANNOTATION_REF=\"" + reference + "\"]";
         XPath xpath = XPathFactory.newInstance().newXPath();
-        return  (Node)xpath.evaluate(annotationExpression, node, XPathConstants.NODE);
+        return (Node) xpath.evaluate(annotationExpression, node, XPathConstants.NODE);
 
     }
 }

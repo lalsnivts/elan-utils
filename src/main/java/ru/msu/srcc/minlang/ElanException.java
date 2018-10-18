@@ -6,7 +6,7 @@ import org.omg.CORBA.UserException;
  * Created by User on 17.02.2015.
  */
 public class ElanException extends UserException {
-    public ElanException(String message){
+    public ElanException(String message) {
         super(message);
     }
 }

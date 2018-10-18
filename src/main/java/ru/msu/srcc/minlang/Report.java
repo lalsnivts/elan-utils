@@ -1,12 +1,10 @@
 package ru.msu.srcc.minlang;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-public class Report extends JOptionPane
-{
-  public static void reportException(String exception)
-  {
-  }
+public class Report extends JOptionPane {
+    public static void reportException(String exception) {
+    }
 }
 
 /* Location:           E:\ELAN2011\ElanUtils\ElanUtils\out\production\ElanUtils\

@@ -12,7 +12,10 @@ import org.docx4j.wml.*;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +31,20 @@ public class TableFormatter extends CommonBookFormatter {
 
     private org.docx4j.wml.ObjectFactory factory;
     private PPrBase.Spacing spacing;
+
+    public static void main(String args[]) {
+        try {
+            new TableFormatter().formatTablesFromFile("D://ForElan//Book//KetTexts//KetTexts_2015//Котусова_ML.docx");
+        } catch (Docx4JException e) {
+            e.printStackTrace();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void formatTablesFromFile(String filename) throws Docx4JException, JAXBException, FileNotFoundException, UnsupportedEncodingException {
         String outputFilename = filename + "_aligned.doc";
@@ -45,7 +62,6 @@ public class TableFormatter extends CommonBookFormatter {
         writer.close();
 
 
-
         WordprocessingMLPackage outWordMLPackage = getTemplate();
         MainDocumentPart outMainDocumentPart = outWordMLPackage.getMainDocumentPart();
 
@@ -58,17 +74,16 @@ public class TableFormatter extends CommonBookFormatter {
 
 
         List<Object> listOfTables = inDocumentPart.getJAXBNodesViaXPath("//*[local-name()='tbl']", false);
-        for(Object obj : listOfTables){
-            Tbl tbl = (Tbl)((JAXBElement)obj).getValue();
+        for (Object obj : listOfTables) {
+            Tbl tbl = (Tbl) ((JAXBElement) obj).getValue();
 
 
-
-            List<Object>rows = tbl.getContent();
-            if(rows!=null && !rows.isEmpty()){
+            List<Object> rows = tbl.getContent();
+            if (rows != null && !rows.isEmpty()) {
                 TblCreationResult result = copyRows(rows, outMainDocumentPart, tableToUse, lastSentenceNum, charactersLeft);
                 tableToUse = result.getTb();
                 charactersLeft = result.getMaxCharactersLeft();
-                if(result.getLastSentenceNum() != 0){
+                if (result.getLastSentenceNum() != 0) {
                     lastSentenceNum = result.getLastSentenceNum();
                 }
             }
@@ -81,15 +96,12 @@ public class TableFormatter extends CommonBookFormatter {
 
         String headerType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/header";
         String footerType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer";
-        String stylesType =  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles";
-        String themeType =  "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme";
-
-
+        String stylesType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles";
+        String themeType = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme";
 
 
         FootnotesPart footnotesPart = inDocumentPart.getFootnotesPart();
         FootnotesPart outFootnotesPart = outMainDocumentPart.getFootnotesPart();
-
 
 
         CTFootnotes footnotes = footnotesPart.getContents();
@@ -98,7 +110,7 @@ public class TableFormatter extends CommonBookFormatter {
         //TODO: normal style for footnotes
 
 
-        Set<String> allTypes  = new HashSet<String>();
+        Set<String> allTypes = new HashSet<String>();
 
        /* for(int i = 0; i < rp.getRelationships().getRelationship().size(); ++i ){
             System.out.println(i);
@@ -120,38 +132,31 @@ public class TableFormatter extends CommonBookFormatter {
         }    */
 
 
-
-        outWordMLPackage.save(new java.io.File(outputFilename) );
+        outWordMLPackage.save(new java.io.File(outputFilename));
     }
 
+    private TblCreationResult copyRows(List<Object> rows, MainDocumentPart outMainDocumentPart, Tbl tbl, int lastSentenceNum, int charactersLeft) {
+        Tr row1 = (Tr) rows.get(0);
+        Tr row2 = (Tr) rows.get(1);
+        Tr row3 = (Tr) rows.get(2);
 
 
-
-    private TblCreationResult copyRows(List<Object>rows, MainDocumentPart outMainDocumentPart, Tbl tbl, int lastSentenceNum, int charactersLeft){
-        Tr row1 = (Tr)rows.get(0);
-        Tr row2 = (Tr)rows.get(1);
-        Tr row3 = (Tr)rows.get(2);
-
-
-        Tr newRows[]= new Tr[3];
+        Tr newRows[] = new Tr[3];
         TblCreationResult result = new TblCreationResult();
 
 
-
         boolean isNewTable = false;
-        if(tbl == null){
+        if (tbl == null) {
             tbl = createNewTable();
             isNewTable = true;
             newRows = createRows(ROW_NUM);
             charactersLeft = MAX_CHAR_PER_ROW;
-        }
-        else{
-            List<Object>rowContent = tbl.getContent();
-            for(int i = 0; i<ROW_NUM; ++i){
-                newRows[i] = (Tr)rowContent.get(i);
+        } else {
+            List<Object> rowContent = tbl.getContent();
+            for (int i = 0; i < ROW_NUM; ++i) {
+                newRows[i] = (Tr) rowContent.get(i);
             }
         }
-
 
 
         boolean isPrevNumber = false;
@@ -161,31 +166,29 @@ public class TableFormatter extends CommonBookFormatter {
         Tc savedCell3 = null;
 
         int numOfColumns = row1.getContent().size();
-        for(int i = 0; i < numOfColumns; ++i){
+        for (int i = 0; i < numOfColumns; ++i) {
             //TODO: refactor?
 
-            Tc cell1 = (Tc)((JAXBElement)(row1.getContent().get(i))).getValue();
-            Tc cell2 = (Tc)((JAXBElement)(row2.getContent().get(i))).getValue();
-            Tc cell3 = (Tc)((JAXBElement)(row3.getContent().get(i))).getValue();
+            Tc cell1 = (Tc) ((JAXBElement) (row1.getContent().get(i))).getValue();
+            Tc cell2 = (Tc) ((JAXBElement) (row2.getContent().get(i))).getValue();
+            Tc cell3 = (Tc) ((JAXBElement) (row3.getContent().get(i))).getValue();
 
-            Object content1 =  cell1.getContent();
-            Object content2 =  cell2.getContent();
-            Object content3 =  cell3.getContent();
+            Object content1 = cell1.getContent();
+            Object content2 = cell2.getContent();
+            Object content3 = cell3.getContent();
 
             String cell1Text = content1.toString();
             String cell2Text = content2.toString();
             String cell3Text = content3.toString();
 
-            if(cell1Text.contains("owilʼdʼen")){
+            if (cell1Text.contains("owilʼdʼen")) {
                 System.out.println("aaaa");
             }
 
             int maxLength = Math.max(Math.max(cell1Text.length(), cell2Text.length()), cell3Text.length());
 
 
-
-
-            if(maxLength > charactersLeft){
+            if (maxLength > charactersLeft) {
                 updateTableRows(tbl, newRows, isNewTable, outMainDocumentPart);
                 tbl = createNewTable();
                 newRows = createRows(ROW_NUM);
@@ -196,7 +199,7 @@ public class TableFormatter extends CommonBookFormatter {
 
             Pattern pattern = Pattern.compile("\\d\\.");
 
-            if(isPrevNumber){
+            if (isPrevNumber) {
                 newRows[0].getContent().add(savedCell1);
                 newRows[1].getContent().add(savedCell2);
                 newRows[2].getContent().add(savedCell3);
@@ -208,25 +211,18 @@ public class TableFormatter extends CommonBookFormatter {
             savedCell3 = createCellWithContent(content3);
 
 
-
-            if(pattern.matcher(cell1Text).find()){
+            if (pattern.matcher(cell1Text).find()) {
                 //setSentenceNum(savedCell1, lastSentenceNum);
                 lastSentenceNum += 1;
                 result.setLastSentenceNum(lastSentenceNum);
 
                 charactersLeft -= 4;
                 isPrevNumber = true;
-            }
-            else{
+            } else {
                 newRows[0].getContent().add(savedCell1);
                 newRows[1].getContent().add(savedCell2);
                 newRows[2].getContent().add(savedCell3);
             }
-
-
-
-
-
 
 
         }
@@ -237,17 +233,16 @@ public class TableFormatter extends CommonBookFormatter {
         return result;
     }
 
-
-    private Tc createCellWithContent(Object content){
+    private Tc createCellWithContent(Object content) {
         ObjectFactory factory = Context.getWmlObjectFactory();
         Tc cell = factory.createTc();
 
         ArrayList contentAsList = (ArrayList) content;
-        for(Object obj : contentAsList){
+        for (Object obj : contentAsList) {
 
             cell.getContent().add(obj);
 
-            if(obj instanceof P){
+            if (obj instanceof P) {
                 P par = (P) obj;
 
             }
@@ -257,36 +252,33 @@ public class TableFormatter extends CommonBookFormatter {
         return cell;
     }
 
-    private void setSentenceNum(Tc cell, int lastSentenceNum){
+    private void setSentenceNum(Tc cell, int lastSentenceNum) {
         boolean hasChanged = false;
-        for(Object obj: cell.getContent()){
-            if(obj instanceof P){
+        for (Object obj : cell.getContent()) {
+            if (obj instanceof P) {
                 P objAsPar = (P) obj;
-                for(Object subObj:objAsPar.getContent()){
+                for (Object subObj : objAsPar.getContent()) {
 
-                    if(subObj instanceof R){
+                    if (subObj instanceof R) {
 
                         R subObjAsR = (R) subObj;
 
-                        for(Object subSubObj:subObjAsR.getContent()){
+                        for (Object subSubObj : subObjAsR.getContent()) {
 
-                            if(lastSentenceNum == 7){
+                            if (lastSentenceNum == 7) {
                                 int aaa = 9;
                             }
 
 
-                            if(subSubObj instanceof JAXBElement){
-                                if(((JAXBElement) subSubObj).getValue() instanceof Text) {
-                                    Text value = (Text)((JAXBElement) subSubObj).getValue();
-                                    if(!hasChanged){
+                            if (subSubObj instanceof JAXBElement) {
+                                if (((JAXBElement) subSubObj).getValue() instanceof Text) {
+                                    Text value = (Text) ((JAXBElement) subSubObj).getValue();
+                                    if (!hasChanged) {
                                         value.setValue((lastSentenceNum + 1) + ".");
                                         hasChanged = true;
-                                    }
-                                    else{
+                                    } else {
                                         value.setValue("");
                                     }
-
-
 
 
                                 }
@@ -295,27 +287,6 @@ public class TableFormatter extends CommonBookFormatter {
                     }
                 }
             }
-        }
-    }
-
-
-
-
-
-
-
-
-    public static void main(String args[]) {
-        try {
-            new TableFormatter().formatTablesFromFile("D://ForElan//Book//KetTexts//KetTexts_2015//Котусова_ML.docx");
-        } catch (Docx4JException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
     }
 }
