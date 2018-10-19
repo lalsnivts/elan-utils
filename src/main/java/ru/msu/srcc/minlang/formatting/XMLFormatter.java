@@ -13,8 +13,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -83,27 +87,8 @@ public class XMLFormatter {
             "<h1>ГЛОССЫ 2.0</h1>\n";
     private static final String HTML_END = "</body>\n" +
             "</html>\n";
-    private static final String ORIGINAL_TIER_NAME = "ev";
     private static final String SIL_ORIGINAL_TIER_NAME = "ev";
-    private static final String SIL_FON_TIER_NAME = "fon";
-    private static final String FON_TIER_NAME = "fon";
-    private static final String SIL_FON_WORD_TIER_NAME = "fonWord";
-    private static final String FON_WORD_TIER_NAME = "fonWord";
     private static final String SIL_RUS_TIER_NAME = "rus";
-    private static final String RUS_TIER_NAME = "rus";
-    private static final String SIL_GLOSS_TIER_NAME = "gl";
-    private static final String GLOSS_TIER_NAME = "gl";
-    private static final String COMMENT_TIER_NAME = "comment";
-    private static final String FIRST_ORIGINAL_TIER_NAME = "ev1";
-    private static final String FIRST_FON_TIER_NAME = "fon1";
-    private static final String FIRST_FON_WORD_TIER_NAME = "fonWord1";
-    private static final String FIRST_GLOSS_TIER_NAME = "gl1";
-    private static final String FIRST_RUS_TIER_NAME = "rus1";
-    private static final String SECOND_ORIGINAL_TIER_NAME = "ev2";
-    private static final String SECOND_FON_TIER_NAME = "fon2";
-    private static final String SECOND_FON_WORD_TIER_NAME = "fonWord2";
-    private static final String SECOND_GLOSS_TIER_NAME = "gl2";
-    private static final String SECOND_RUS_TIER_NAME = "rus2";
     private String oldFileName;
     private EAFHelper eafHelper = new EAFHelper();
 
@@ -239,6 +224,8 @@ public class XMLFormatter {
     private String concatenateTextSIL(int sentNum, boolean isArchive, List<Long[]> timeMsArray,
                                       List<Node> originalMessages,
                                       List<String> translations) throws XMLElanException {
+        LocalDateTime start = LocalDateTime.now();
+
         StringBuilder result = new StringBuilder("<div class=\"gl-block\">\n");
         for (int i = 0; i < sentNum; ++i) {
             appendTimeReferences(result, timeMsArray, isArchive, i);
@@ -268,6 +255,10 @@ public class XMLFormatter {
         }
 
         result.append("</div>\r\n");
+
+        LocalDateTime end = LocalDateTime.now();
+        long diff = ChronoUnit.MILLIS.between(start, end);
+        System.out.println(String.format("concatenateTextSIL: %s milliseconds", diff));
         return result.toString();
     }
 
@@ -308,6 +299,7 @@ public class XMLFormatter {
                                  List<Node> originalSentences,
                                  List<String> translations,
                                  int sentenceIndex) throws XMLElanException {
+
         List<Node> allWords;
         try {
             allWords = eafHelper.getFonWordsByReference(eafHelper.getAnnotationId(
@@ -386,15 +378,7 @@ public class XMLFormatter {
         }
 
 
-        if (curWordGlosses.startsWith("<table><td class=\"gl-data-tx-1\">") && !prevTableStarted) {
-            int len = "<table><td class=\"gl-data-tx-2\">".length();
-            curWordGlosses = curWordGlosses.substring(len);
-        }
 
-        if (curWordMorphemes.startsWith("<table><td class=\"gl-data-tx-2\">") && !prevTableStarted) {
-            int len = "<table><td class=\"gl-data-tx-2\">".length();
-            curWordMorphemes = curWordMorphemes.substring(len);
-        }
 
 
         curWordMorphemes = curWordMorphemes.replaceAll("--", "-")
@@ -406,17 +390,8 @@ public class XMLFormatter {
         morphString.append(curWordMorphemes);
         morphString.append("</td>");
 
-        String beforeWord = "";
-        String afterWord = "";
-        if (curWordMorphemes.contains("<table")) {
-            beforeWord = "<table><td class=\"gl-data-tx-1\">";
-            afterWord = "</td></table>";
-        }
-
         wordString.append("<td>");
-        wordString.append(beforeWord);
         wordString.append(curWord.getTextContent().trim());
-        wordString.append(afterWord);
         wordString.append("</td>");
 
 

@@ -6,64 +6,15 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77afea1a-020a-4b77-a911-eba2f5918e38" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/test/TransliterationHelperTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="77afea1a-020a-4b77-a911-eba2f5918e38" name="Default" comment="minor refactoring, fixed error descriptions">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ElanUtils.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ElanUtils.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/null_out.html" beforeDir="false" afterPath="$PROJECT_DIR$/null_out.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/AddTransliteration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/BookFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/BookFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/CommonBookFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/CommonBookFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/ElanBookExporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/ElanBookExporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/ElanException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/ElanException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/ElanParsingResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/ElanParsingResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/EvenkiConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/EvenkiConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/TableFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/TableFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLCommonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLCommonUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanOldUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanOldUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/EvenkiConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/AddTransliteration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/BookFormat.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/BookFormatter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/BookMorphSentence.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/BookMorphWord.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/CommonBookFormatter$TblCreationResult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/CommonBookFormatter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/ElanBookExporter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/ElanException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/ElanParsingResult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/EvenkiConverter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/Report.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/TableFormatter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/WordGloss.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLCommonUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanOldUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanTool$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanTool$AddTransliterationListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanTool$NewTierNameListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanTool$OpenFileListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanTool$SaveToXMLListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanTool.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanUtils$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanUtils$SentenceComparator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLElanUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLFormatter$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLFormatter$AnnotationSorter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLFormatter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLValidator$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLValidator$ChooseFileListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/lena/XMLValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" afterDir="false" />
     </list>
     <ignored path="ElanUtils.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -128,46 +79,87 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="EvenkiConverter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XMLElanTool.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="167" selection-start-line="167" selection-end-line="167" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TransliterationHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="302" column="36" selection-start-line="302" selection-start-column="36" selection-end-line="302" selection-end-column="36" />
+            <state relative-caret-position="-1509">
+              <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#11161#11162#0" expanded="true" />
-                <element signature="e#11217#11218#0" expanded="true" />
-                <element signature="e#12327#12328#0" expanded="true" />
-                <element signature="e#12404#12405#0" expanded="true" />
-                <element signature="e#12442#12443#0" expanded="true" />
-                <element signature="e#12473#12474#0" expanded="true" />
-                <element signature="e#12505#12506#0" expanded="true" />
-                <element signature="e#12531#12532#0" expanded="true" />
-                <element signature="e#12573#12574#0" expanded="true" />
-                <element signature="e#12605#12606#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransliterationHelperTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/test/TransliterationHelperTest.java">
+      <file leaf-file-name="XMLFormatter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+            <state relative-caret-position="263">
+              <caret line="277" column="73" selection-start-line="277" selection-start-column="73" selection-end-line="277" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#6059#6060#0" expanded="true" />
+                <element signature="e#6111#6112#0" expanded="true" />
+                <element signature="e#6185#6186#0" expanded="true" />
+                <element signature="e#6222#6223#0" expanded="true" />
+                <element signature="e#21051#26112#0" />
+                <element signature="e#26119#29579#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XMLElanTool.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
+      <file leaf-file-name="EAFHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3267">
+              <caret line="41" column="54" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1155#1163#0" expanded="true" />
+                <element signature="e#3536#3544#0" expanded="true" />
+                <element signature="e#4252#4258#0" expanded="true" />
+                <element signature="e#7361#7367#0" expanded="true" />
+                <element signature="e#145#146#0" expanded="true" />
+                <element signature="e#171#172#0" expanded="true" />
+                <element signature="e#211#212#0" expanded="true" />
+                <element signature="e#241#242#0" expanded="true" />
+                <element signature="e#15751#15752#0" expanded="true" />
+                <element signature="e#15791#15792#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommonUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="101">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
-              <folding>
-                <element signature="e#1409#1410#0" expanded="true" />
-                <element signature="e#1442#1443#0" expanded="true" />
-              </folding>
+              <caret line="35" column="37" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -177,32 +169,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>xmlForma</find>
-      <find>&quot;=&quot;</find>
-      <find>getAnnotationValuesByTierName</find>
-      <find>SIL_RUS_TIER_NAME</find>
-      <find>getSILRussianArray</find>
-      <find>getMorphemesByReference</find>
-      <find>comment</find>
-      <find>isWordBorder</find>
-      <find>parseOldMorphSentence</find>
-      <find>exportOldEafForBook</find>
-      <find>parseElanFile</find>
-      <find>parseElanFile(</find>
-      <find>oldEaf</find>
-      <find>phrase</find>
-      <find>/\*\s+\d+\s+\*/</find>
-      <find>OldFileN</find>
-      <find>oldFil</find>
-      <find>readTierNames</find>
-      <find>getTierNames</find>
       <find>no tiers fou</find>
       <find>allTiersListValue</find>
       <find>pack</find>
@@ -214,7 +187,31 @@
       <find>isSil</find>
       <find>choo</find>
       <find>tierNames</find>
+      <find>NewTierNameListener</find>
+      <find>\n+</find>
+      <find>XMLElanOldUtils</find>
+      <find>\n\n</find>
+      <find>/\*\s+\d*\s+\*/</find>
+      <find>getTimeSlotByRef</find>
+      <find>this.do</find>
+      <find>private</find>
+      <find>ref1</find>
+      <find>allTie</find>
+      <find>this.allTiers</find>
+      <find>xmlFormatter</find>
+      <find>setAll</find>
+      <find>min</find>
+      <find>appendTimeReferences</find>
+      <find>prevTableStarted</find>
+      <find>gl-data-tx-1</find>
+      <find>appendMorphemeTable</find>
+      <find>appendWordTable</find>
     </findStrings>
+    <replaceStrings>
+      <replace>\n</replace>
+      <replace>allTiers</replace>
+      <replace>public</replace>
+    </replaceStrings>
     <dirStrings>
       <dir>C:\Users\User\workspace\ElanUtils\src</dir>
       <dir>C:\Users\User\workspace\ElanUtils</dir>
@@ -244,12 +241,16 @@
         <option value="$PROJECT_DIR$/src/main/java/com/lena/ElanBookExporter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/lena/AddTransliteration.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/AddTransliteration.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/TransliterationHelper.java" />
         <option value="$PROJECT_DIR$/src/test/java/ru/msu/srcc/minlang/transliteration/TransliterationHelperTest.java" />
         <option value="$PROJECT_DIR$/src/main/test/TransliterationHelperTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/AnnotationSorter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java" />
       </list>
     </option>
   </component>
@@ -314,7 +315,34 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="minlang" type="462c0819:PsiDirectoryNode" />
+              <item name="eaf" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ElanUtils" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ElanUtils" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="minlang" type="462c0819:PsiDirectoryNode" />
+              <item name="formatting" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ElanUtils" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ElanUtils" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="minlang" type="462c0819:PsiDirectoryNode" />
               <item name="transliteration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ElanUtils" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ElanUtils" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="minlang" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ElanUtils" type="b2602c69:ProjectViewProjectNode" />
@@ -334,9 +362,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -448,6 +476,17 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
+    </configuration>
+    <configuration name="XMLElanTool" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ru.msu.srcc.minlang.XMLElanTool" />
+      <module name="ElanUtils" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.msu.srcc.minlang.transliteration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -609,6 +648,21 @@
       <option name="presentableId" value="Default" />
       <updated>1381778319145</updated>
     </task>
+    <task id="LOCAL-00001" summary="minor refactoring, fixed error descriptions">
+      <created>1539940115286</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1539940115286</updated>
+    </task>
+    <task id="LOCAL-00002" summary="table creation refactored">
+      <created>1539952870608</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1539952870608</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -629,7 +683,7 @@
       <window_info id="Capture Tool" order="3" />
       <window_info anchor="right" id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.670987" visible="true" weight="0.24895833" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24947916" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.031770833" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32958803" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24972796" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -647,35 +701,36 @@
       <window_info anchor="bottom" id="Application Servers" order="7" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" id="JetGradle" order="4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="7" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2740113" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.670987" visible="true" weight="0.24947916" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.24972796" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Application Servers" order="7" />
+      <window_info anchor="right" id="Designer" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.27482447" />
+      <window_info anchor="right" id="JetGradle" order="5" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
-      <window_info id="Image Layers" order="4" />
-      <window_info anchor="right" id="Designer" order="5" />
-      <window_info id="UI Designer" order="5" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32958803" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.413371" />
-      <window_info id="Palette&#9;" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Application Servers" order="8" />
-      <window_info anchor="bottom" id="Changes" order="7" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Changes" order="8" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005208" side_tool="true" weight="0.2740113" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.27434456" />
-      <window_info id="Capture Tool" order="6" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.326742" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.031770833" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.670987" visible="true" weight="0.24895833" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32597792" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Image Layers" order="6" />
+      <window_info id="Palette&#9;" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24972796" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.3296875" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32958803" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.41223672" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -689,6 +744,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="minor refactoring, fixed error descriptions" />
+    <MESSAGE value="table creation refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="table creation refactored" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -699,14 +759,8 @@
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLFormatter.java</url>
-          <line>931</line>
-          <properties />
-          <option name="timeStamp" value="119" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLFormatter.java</url>
-          <line>735</line>
+          <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java</url>
+          <line>747</line>
           <properties />
           <option name="timeStamp" value="125" />
         </line-breakpoint>
@@ -766,15 +820,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java</url>
-          <line>49</line>
+          <line>48</line>
           <properties />
           <option name="timeStamp" value="149" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java</url>
-          <line>241</line>
+          <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java</url>
+          <line>26</line>
           <properties />
-          <option name="timeStamp" value="150" />
+          <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/BookFormatter.java</url>
@@ -788,7 +842,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="151" />
+      <option name="time" value="160" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -796,30 +850,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/EvenkiConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="6" column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="35" column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/EvenkiConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="6" column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/Report.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -920,13 +950,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ElanUtils.iml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/EvenkiConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="53" column="16" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/BookFormat.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1029,17 +1052,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanOldUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#4310#4311#0" expanded="true" />
-            <element signature="e#4383#4384#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/BookFormatter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2025">
@@ -1051,13 +1063,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="11448">
           <caret line="435" column="78" selection-start-line="435" selection-start-column="78" selection-end-line="435" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="269" selection-start-line="269" selection-end-line="269" />
         </state>
       </provider>
     </entry>
@@ -1082,13 +1087,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="40" selection-start-line="27" selection-start-column="40" selection-end-line="27" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_77/src.zip!/javax/swing/BoxLayout.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1103,26 +1101,6 @@
           <folding>
             <element signature="e#6117#6118#0" expanded="true" />
             <element signature="e#6152#6153#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="302" column="36" selection-start-line="302" selection-start-column="36" selection-end-line="302" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#11161#11162#0" expanded="true" />
-            <element signature="e#11217#11218#0" expanded="true" />
-            <element signature="e#12327#12328#0" expanded="true" />
-            <element signature="e#12404#12405#0" expanded="true" />
-            <element signature="e#12442#12443#0" expanded="true" />
-            <element signature="e#12473#12474#0" expanded="true" />
-            <element signature="e#12505#12506#0" expanded="true" />
-            <element signature="e#12531#12532#0" expanded="true" />
-            <element signature="e#12573#12574#0" expanded="true" />
-            <element signature="e#12605#12606#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1166,13 +1144,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_77/src.zip!/javax/swing/JList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="2338" column="13" selection-start-line="2338" selection-start-column="13" selection-end-line="2338" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanOldUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="19" column="28" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/AnnotationSorter.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1509">
+          <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <caret line="35" column="37" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3267">
+          <caret line="41" column="54" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="54" />
           <folding>
-            <element signature="e#1409#1410#0" expanded="true" />
-            <element signature="e#1442#1443#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1155#1163#0" expanded="true" />
+            <element signature="e#3536#3544#0" expanded="true" />
+            <element signature="e#4252#4258#0" expanded="true" />
+            <element signature="e#7361#7367#0" expanded="true" />
+            <element signature="e#145#146#0" expanded="true" />
+            <element signature="e#171#172#0" expanded="true" />
+            <element signature="e#211#212#0" expanded="true" />
+            <element signature="e#241#242#0" expanded="true" />
+            <element signature="e#15751#15752#0" expanded="true" />
+            <element signature="e#15791#15792#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="167" selection-start-line="167" selection-end-line="167" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_77/src.zip!/java/time/LocalDateTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="1364" column="25" selection-start-line="1364" selection-start-column="25" selection-end-line="1364" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="277" column="73" selection-start-line="277" selection-start-column="73" selection-end-line="277" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6059#6060#0" expanded="true" />
+            <element signature="e#6111#6112#0" expanded="true" />
+            <element signature="e#6185#6186#0" expanded="true" />
+            <element signature="e#6222#6223#0" expanded="true" />
+            <element signature="e#21051#26112#0" />
+            <element signature="e#26119#29579#0" />
           </folding>
         </state>
       </provider>

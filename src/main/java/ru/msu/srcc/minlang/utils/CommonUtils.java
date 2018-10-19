@@ -27,4 +27,25 @@ public class CommonUtils {
         }
         return DEFAULT_PUNCTUATION_MARK;
     }
+
+
+    public static String[] tokenizeSentence(String sentence) {
+        return sentence.split("\\s");
+    }
+
+    public static String formatMinSec(long ms) {
+        long minSecMs = ms % 3600000;
+        long min = minSecMs / 60000;
+        long sec = (minSecMs % 60000) / 1000;
+        return getTimeValueFromLong(min) + ":" + getTimeValueFromLong(sec);
+    }
+
+    public static String getTimeValueFromLong(long timeValue) {
+        String timeStr = String.valueOf(timeValue);
+        if (timeStr.length() == 1) {
+            timeStr = "0" + timeStr;
+        }
+        return timeStr;
+    }
+
 }

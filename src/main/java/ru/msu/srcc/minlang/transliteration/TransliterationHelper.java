@@ -2,9 +2,8 @@ package ru.msu.srcc.minlang.transliteration;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-import ru.msu.srcc.minlang.EvenkiConverter;
 import ru.msu.srcc.minlang.XMLElanException;
-import ru.msu.srcc.minlang.XMLFormatter;
+import ru.msu.srcc.minlang.eaf.EAFHelper;
 import ru.msu.srcc.minlang.utils.CommonUtils;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -32,7 +31,7 @@ public class TransliterationHelper {
     private String oldFileName;
 
 
-    private XMLFormatter xmlFormatter = new XMLFormatter();
+    private EAFHelper eafHelper = new EAFHelper();
     private EvenkiConverter evenkiConverter = new EvenkiConverter();
 
     /**
@@ -47,7 +46,7 @@ public class TransliterationHelper {
      */
     public File addTransliteration(String tierToTransliterate,
                                    String newTierName, boolean isSil) throws XMLElanException {
-        xmlFormatter.setAllTiers(allTiers);
+        eafHelper.setAllTiers(allTiers);
         for (int i = 0; i < allTiers.getLength(); ++i) {
             Node node = allTiers.item(i);
             NamedNodeMap attributes = node.getAttributes();
@@ -97,7 +96,7 @@ public class TransliterationHelper {
     private void convertSIL(Document doc, Element newTier) throws XMLElanException {
         try {
             int timeslotId = 0;
-            List<Node> russianNodes = xmlFormatter.getSILRussianNodes();
+            List<Node> russianNodes = eafHelper.getSILRussianNodes();
 
             int sentNum = russianNodes.size();
 
@@ -124,7 +123,7 @@ public class TransliterationHelper {
     private Node convertSILSentence(Node russianSentenceNode, int annotationIndex, int timeslotId)
             throws XMLElanException {
         try {
-            String annotationId = xmlFormatter.getAnnotationId(russianSentenceNode);
+            String annotationId = eafHelper.getAnnotationId(russianSentenceNode);
             String punctuationMark = getPunctuationMark(russianSentenceNode);
             String sentenceConverted = convertAnnotation(annotationId, punctuationMark);
             return createTransliterationAnnotation(sentenceConverted, annotationIndex, timeslotId);
@@ -165,11 +164,11 @@ public class TransliterationHelper {
     private String concatenateOriginalWordsByAnnotationId(String annotationId) throws XMLElanException {
         List<Node> allWords = null;
         try {
-            allWords = xmlFormatter.getFonWordsByReference(annotationId);
+            allWords = eafHelper.getFonWordsByReference(annotationId);
         } catch (XPathExpressionException e) {
             throw new XMLElanException(String.format("Error occurred when concatenating words: %s", e.getMessage()));
         }
-        StringBuffer sentenceToConvert = new StringBuffer();
+        StringBuilder sentenceToConvert = new StringBuilder();
         for (Node word : allWords) {
             sentenceToConvert.append(" ");
             sentenceToConvert.append(word.getTextContent().trim());
@@ -192,7 +191,7 @@ public class TransliterationHelper {
     private void convertOldFormat(Document doc, Element newTier) throws XMLElanException {
         try {
             int tsId = 0;
-            List<Node> fonNodes = xmlFormatter.getOldFonNodes();
+            List<Node> fonNodes = eafHelper.getOldFonNodes();
             int sentNum = fonNodes.size();
 
             for (int i = 0; i < sentNum; ++i) {
