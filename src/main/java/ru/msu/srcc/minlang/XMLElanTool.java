@@ -1,8 +1,5 @@
 package ru.msu.srcc.minlang;
-
-
 import ru.msu.srcc.minlang.transliteration.TransliterationHelper;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -13,11 +10,8 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.List;
 import java.util.Set;
-
 import static javax.swing.SpringLayout.NORTH;
 import static javax.swing.SpringLayout.SOUTH;
-
-
 public class XMLElanTool {
     private static final String DEFAULT_TIER_NAME = "ev";
     private static final int MAX_TIER_NAME_LENGTH = 20;
@@ -36,8 +30,6 @@ public class XMLElanTool {
     private JCheckBox isArchive;
     private Cursor waitCursor = new Cursor(3);
     private Cursor defaultCursor = new Cursor(0);
-
-
     public XMLElanTool() {
         initializeMyFrame();
         initalizeControls();
@@ -46,12 +38,9 @@ public class XMLElanTool {
         fc.setFileFilter(filter);
         myFrame.setVisible(true);
     }
-
     public static void main(String[] args) {
         new XMLElanTool();
     }
-
-
     private void initializeMyFrame() {
         myFrame = new JFrame();
         myFrame.setDefaultCloseOperation(2);
@@ -63,26 +52,19 @@ public class XMLElanTool {
         newTierName = new JTextField(MAX_TIER_NAME_LENGTH);
         newTierName.setText(DEFAULT_TIER_NAME);
         newTierName.setMaximumSize( newTierName.getPreferredSize() );
-        newTierName.addMouseListener(new NewTierNameListener());
     }
-
-
     private void initalizeControls() {
         JButton openFileButton = new JButton("Open file");
         addTransliterationButton = new JButton("Add transliteration");
         addTransliterationButton.setEnabled(false);
         openFileButton.addActionListener(new OpenFileListener());
-
         addTransliterationButton.addActionListener(new AddTransliterationListener());
-
         saveToHTMLFormat = new JButton("Save to HTML");
         saveToHTMLFormat.setEnabled(false);
         saveToHTMLFormat.addActionListener(new SaveToXMLListener());
-
         isSilCheckBox = new JCheckBox("is sil", true);
         isTwoSpeakersCheckBox = new JCheckBox("two speakers");
         isArchive = new JCheckBox("is archive");
-
         JPanel buttonsAndTextField = new JPanel();
         buttonsAndTextField.setLayout(new BoxLayout(buttonsAndTextField, BoxLayout.X_AXIS));
         buttonsAndTextField.add(openFileButton);
@@ -92,195 +74,90 @@ public class XMLElanTool {
         buttonsAndTextField.add(isSilCheckBox);
         buttonsAndTextField.add(isTwoSpeakersCheckBox);
         buttonsAndTextField.add(isArchive);
-
         textPanel.add(NORTH, allTiersList);
         textPanel.add(SOUTH, buttonsAndTextField);
     }
-
-
     private void reportException(String exceptionMessage) {
         JOptionPane.showMessageDialog(this.textPanel, exceptionMessage);
     }
-
-
-    private class NewTierNameListener extends MouseAdapter {
-
-        private NewTierNameListener() {
-
-        }
-
-
-        public void mouseClicked(MouseEvent e) {
-
-            if (newTierName.getText().equals("new tier name"))
-                newTierName.setText("");
-
-        }
-
-
-        public void mouseExited(MouseEvent e) {
-
-            if (newTierName.getText().equals(""))
-                newTierName.setText("new tier name");
-
-        }
-
-    }
-
-
     private class AddTransliterationListener
             implements ActionListener {
-
         private AddTransliterationListener() {
-
         }
-
-
         public void actionPerformed(ActionEvent e) {
-
             try {
-
                 String newTierNameValue = newTierName.getText();
-
-                if (newTierNameValue.equals("")) {
-
-                    throw new XMLElanException("No new tier name!");
-
+                if (newTierNameValue.trim().isEmpty()) {
+                    throw new XMLElanException("No new tier name");
                 }
-
+                Object tierToTransliterateName = allTiersList.getSelectedValue();
+                if(tierToTransliterateName == null){
+                    throw new XMLElanException("No tier to transliterate selected");
+                }
                 if (allTiersListValue.contains(newTierNameValue)) {
-
                     throw new XMLElanException(String.format("Tier already exists: %s" , newTierNameValue));
-
                 }
-
-
                 textPanel.setCursor(waitCursor);
-
-                File newFile = transliterationHelper.addTransliteration((String) allTiersList.getSelectedValue(), newTierName.getText(), isSilCheckBox.isSelected());
-
-
+                File newFile = transliterationHelper.addTransliteration((String) tierToTransliterateName,
+                        newTierNameValue, isSilCheckBox.isSelected());
                 if (newFile == null) {
-
                     throw new XMLElanException("There occurred errors during processing");
-
                 }
-
-                JOptionPane.showMessageDialog(textPanel, "New file created: " +
-                        newFile.getAbsolutePath());
-
-                //showContents(1, newFile);
-
-                textPanel.setCursor(defaultCursor);
-
+                JOptionPane.showMessageDialog(textPanel, String.format("New file created: %s" ,
+                        newFile.getAbsolutePath()));
             } catch (XMLElanException xee) {
-
                 reportException(xee.getMessage());
-
+            } finally {
                 textPanel.setCursor(defaultCursor);
-
             }
-
         }
-
     }
-
-
     private class SaveToXMLListener
             implements ActionListener {
-
-
         public void actionPerformed(ActionEvent e) {
-
             try {
-
-
                 textPanel.setCursor(waitCursor);
-
                 List<String> filePaths = xmlFormatter.saveFiles(isSilCheckBox.isSelected(),
                         isTwoSpeakersCheckBox.isSelected(),
                         isArchive.isSelected());
-
-
-                JOptionPane.showMessageDialog(textPanel, "Files created: " + String.join("\r\n", filePaths));
-
-
-                //showContents(1, newFile);
-
-                textPanel.setCursor(defaultCursor);
-
+                JOptionPane.showMessageDialog(textPanel, String.format("Files created: %s",
+                        String.join("\n", filePaths)));
             } catch (XMLElanException xee) {
-
                 reportException(xee.getMessage());
-
+            } finally {
                 textPanel.setCursor(defaultCursor);
-
             }
-
         }
-
     }
-
-
     private class OpenFileListener
             implements ActionListener {
-
         private OpenFileListener() {
-
         }
-
-
         public void actionPerformed(ActionEvent e) {
-
             fc.showOpenDialog(myFrame);
-
             File selected = fc.getSelectedFile();
-
             if (selected != null)
                 try {
-
-
                     allTiersListValue = null;
-
                     textPanel.setCursor(waitCursor);
-                    //showContents(0, selected);
-
                     transliterationHelper.readFile(selected);
-
-
                     allTiersListValue = transliterationHelper.getTierNames();
-
                     textPanel.setCursor(defaultCursor);
-
                     if ((allTiersListValue == null) || (allTiersListValue.size() == 0)) {
-
-                        throw new XMLElanException("No tiers found in: " + selected.getAbsolutePath());
-
+                        throw new XMLElanException(String.format("No tiers found in: %s" ,
+                                selected.getAbsolutePath()));
                     }
-
                     allTiersList.setListData(allTiersListValue.toArray());
-
                     addTransliterationButton.setEnabled(true);
                     saveToHTMLFormat.setEnabled(true);
                     xmlFormatter.setAllTiers(transliterationHelper.getAllTiers());
                     xmlFormatter.setDoc(transliterationHelper.getDoc());
                     xmlFormatter.setOldFileName(selected.getAbsolutePath());
-
                 } catch (XMLElanException xee) {
-
                     reportException(xee.getMessage());
-
+                } finally {
                     myFrame.setCursor(defaultCursor);
-
                 }
-
         }
-
     }
-
 }
-
-/* Location:           E:\ELAN2011\ElanUtils\ElanUtils\out\production\ElanUtils\
- * Qualified Name:     XMLElanTool
- * JD-Core Version:    0.6.2
- */
