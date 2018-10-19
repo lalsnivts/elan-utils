@@ -1,8 +1,11 @@
 package ru.msu.srcc.minlang.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class CommonUtils {
     private static final String DEFAULT_PUNCTUATION_MARK = ".";
     private static final String[] PUNCTUATION_MARKS = new String[]{"?", "!", ":", ",", "...", "\"", "»"};
+    private static final String TECHNICAL_SYMBOLS = "=- ";
 
     public static String capitalize(String sentence) {
         if (sentence.length() < 1) {
@@ -48,4 +51,12 @@ public class CommonUtils {
         return timeStr;
     }
 
+    public static String stripTechnicalSymbols(String stringToStrip) {
+        return StringUtils.strip(stringToStrip, TECHNICAL_SYMBOLS);
+    }
+
+    public static String makeReplacementsForGlosses(String stringToProcess) {
+        return stringToProcess.replaceAll("--", "-")
+                .replaceAll("[-=]=", "=");
+    }
 }

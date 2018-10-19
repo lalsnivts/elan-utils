@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Set;
 
@@ -127,12 +129,17 @@ public class XMLElanTool {
             implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
+                LocalDateTime start = LocalDateTime.now();
                 textPanel.setCursor(waitCursor);
                 List<String> filePaths = xmlFormatter.saveFiles(isSilCheckBox.isSelected(),
                         isTwoSpeakersCheckBox.isSelected(),
                         isArchive.isSelected());
+                LocalDateTime end = LocalDateTime.now();
+                long diff = ChronoUnit.MILLIS.between(start, end);
+                System.out.println(String.format("saved to files: %s milliseconds", diff));
                 JOptionPane.showMessageDialog(textPanel, String.format("Files created: %s",
                         String.join("\n", filePaths)));
+
             } catch (XMLElanException xee) {
                 reportException(xee.getMessage());
             } finally {

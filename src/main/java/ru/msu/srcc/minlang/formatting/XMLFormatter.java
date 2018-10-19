@@ -13,12 +13,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 
@@ -195,7 +193,7 @@ public class XMLFormatter {
         } catch (XPathExpressionException e) {
             throw new XMLElanException("Error getting original array:" + e.getMessage());
         }
-        List<String> translations = null;
+        List<String> translations;
         try {
             translations = eafHelper.getSILRussianArray();
         } catch (XMLElanException e) {
@@ -238,11 +236,11 @@ public class XMLFormatter {
             result.append("</div>\r\n");
 
 
-            List<Node> comments = null;
+            List<Node> comments;
             try {
                 comments = eafHelper.getCommentsByReference(eafHelper.getAnnotationId(originalMessages.get(i)));
             } catch (XPathExpressionException e) {
-                throw new XMLElanException("Error getting comments:" + e.getMessage());
+                throw new XMLElanException("Error getting comments: " + e.getMessage());
             }
             if (comments != null && !comments.isEmpty()) {
                 result.append("<div class=\"comment\">");
@@ -291,19 +289,18 @@ public class XMLFormatter {
         result.append("\">");
         result.append(timeSec);
         result.append("</div>\r\n");
-        result.append("<div class=\"data-container\">\r\n");
-        result.append("            <table class=\"gl-data\">\r\n");
     }
 
     private void appendSentenceTable(StringBuilder result,
                                  List<Node> originalSentences,
                                  List<String> translations,
                                  int sentenceIndex) throws XMLElanException {
-
+        result.append("<div class=\"data-container\">\r\n");
+        result.append("            <table class=\"gl-data\">\r\n");
         List<Node> allWords;
+        Node currentSentence = originalSentences.get(sentenceIndex);
         try {
-            allWords = eafHelper.getFonWordsByReference(eafHelper.getAnnotationId(
-                  originalSentences.get(sentenceIndex)));
+            allWords = eafHelper.getFonWordsByReference(eafHelper.getAnnotationId(currentSentence));
         } catch (XPathExpressionException e) {
             throw new XMLElanException("Error getting annotation id:" + e.getMessage());
         }
@@ -354,38 +351,23 @@ public class XMLFormatter {
 
         for (Node morpheme : morphemes) {
             curIndex += 1;
+            boolean isFirstMorpheme = (curIndex == 1);
             boolean isLastMorpheme =  (curIndex == morphemes.size() && curIndex > 1);
             prevTableStarted = appendMorphemeTable(morpheme, translations, sentenceIndex,
                     curWordMorphemesConcatenated,
                     curWordGlossesConcatenated,
                     prevTableStarted,
-                    isLastMorpheme
+                    isLastMorpheme,
+                    isFirstMorpheme
                     );
         }
 
-        String curWordGlosses = curWordGlossesConcatenated.toString();
-        if (curWordGlosses.startsWith("-") ||
-                curWordGlosses.startsWith(" ") ||
-                curWordGlosses.startsWith("=")) {
-            curWordGlosses = curWordGlosses.substring(1);
-        }
+        String curWordGlosses = CommonUtils.stripTechnicalSymbols(curWordGlossesConcatenated.toString());
+        String curWordMorphemes = CommonUtils.stripTechnicalSymbols(curWordMorphemesConcatenated.toString());
 
-        String curWordMorphemes = curWordMorphemesConcatenated.toString();
-        if (curWordMorphemes.startsWith("-") ||
-                curWordMorphemes.startsWith(" ") ||
-                curWordMorphemes.startsWith("=")) {
-            curWordMorphemes = curWordMorphemes.substring(1);
-        }
+        curWordMorphemes = CommonUtils.makeReplacementsForGlosses(curWordMorphemes);
+        curWordGlosses = CommonUtils.makeReplacementsForGlosses(curWordGlosses);
 
-
-
-
-
-        curWordMorphemes = curWordMorphemes.replaceAll("--", "-")
-                .replaceAll("[-=]=", "=");
-
-        curWordGlosses = curWordGlosses.replaceAll("--", "-")
-                .replaceAll("[-=]=", "=");
         morphString.append("<td>");
         morphString.append(curWordMorphemes);
         morphString.append("</td>");
@@ -399,6 +381,7 @@ public class XMLFormatter {
         morphGlossString.append(curWordGlosses);
         morphGlossString.append("</td>");
 
+
         return prevTableStarted;
     }
 
@@ -408,7 +391,8 @@ public class XMLFormatter {
                                         StringBuilder curWordMorphemesConcatenated,
                                         StringBuilder curWordGlossesConcatenated,
                                         boolean prevTableStarted,
-                                        boolean isLastMorpheme) throws XMLElanException {
+                                        boolean isLastMorpheme,
+                                        boolean isFirstMorpheme) throws XMLElanException {
         Node gloss;
         boolean isTableNecessary = true;
         try {
@@ -425,10 +409,10 @@ public class XMLFormatter {
         }
 
         String curDelimiter = " ";
-        if (curWordMorphemesConcatenated.toString().contains("-") || morpheme.getTextContent().contains("-")) {
+        if (!isFirstMorpheme || morpheme.getTextContent().contains("-")) {
             curDelimiter = "-";
             isTableNecessary = false;
-        } else if (curWordMorphemesConcatenated.toString().contains("=") || morpheme.getTextContent().contains("=")) {
+        } else if (morpheme.getTextContent().contains("=")) {
             curDelimiter = "=";
             isTableNecessary = false;
         }
