@@ -6,13 +6,11 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77afea1a-020a-4b77-a911-eba2f5918e38" name="Default" comment="minor refactoring, fixed error descriptions">
+    <list default="true" id="77afea1a-020a-4b77-a911-eba2f5918e38" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/null_out.html" beforeDir="false" afterPath="$PROJECT_DIR$/null_out.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" afterDir="false" />
     </list>
     <ignored path="ElanUtils.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,7 +78,7 @@
       <file leaf-file-name="EvenkiConverter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
+            <state relative-caret-position="27">
               <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -92,8 +90,8 @@
       <file leaf-file-name="XMLElanTool.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-54">
-              <caret line="105" column="54" selection-start-line="105" selection-start-column="54" selection-end-line="105" selection-end-column="54" />
+            <state relative-caret-position="223">
+              <caret line="133" column="54" selection-start-line="133" selection-start-column="54" selection-end-line="133" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,7 +102,7 @@
       <file leaf-file-name="TransliterationHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
+            <state relative-caret-position="270">
               <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -113,33 +111,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XMLFormatter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="XMLFormatter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="355" column="54" selection-start-line="355" selection-start-column="54" selection-end-line="355" selection-end-column="54" />
+            <state relative-caret-position="-8748">
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#createTextSILTwoSpeakers#0;class#XMLFormatter#0" />
+                <element signature="method#createTextSimple#0;class#XMLFormatter#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EAFHelper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EAFHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="255" column="16" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
+            <state relative-caret-position="166">
+              <caret line="48" column="89" lean-forward="true" selection-start-line="48" selection-start-column="89" selection-end-line="48" selection-end-column="89" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6416#6422#0" expanded="true" />
-                <element signature="e#6977#6983#0" expanded="true" />
-                <element signature="e#7443#7449#0" expanded="true" />
-                <element signature="e#8035#8041#0" expanded="true" />
-                <element signature="e#14965#14966#0" expanded="true" />
-                <element signature="e#14991#14992#0" expanded="true" />
-                <element signature="e#15031#15032#0" expanded="true" />
-                <element signature="e#15061#15062#0" expanded="true" />
+                <element signature="e#14295#14296#0" expanded="true" />
+                <element signature="e#14321#14322#0" expanded="true" />
+                <element signature="e#14361#14362#0" expanded="true" />
+                <element signature="e#14391#14392#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,8 +144,8 @@
       <file leaf-file-name="CommonUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1485">
-              <caret line="57" column="51" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="51" />
+            <state relative-caret-position="449">
+              <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -166,11 +162,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getAnnotations</find>
-      <find>ANNOTATION</find>
-      <find>appendTimeReferences</find>
-      <find>XPATH</find>
-      <find>eafHe</find>
       <find>appendWordT</find>
       <find>SINGLE</find>
       <find>getOneAnnotationNodeByTierNameReference</find>
@@ -194,8 +185,13 @@
       <find>getAnnotationValues(</find>
       <find>TIME_SL</find>
       <find>appendSentenceTable(</find>
-      <find>TIME_VALUE_XPATH</find>
       <find>appendMorphemeTable</find>
+      <find>appendTimeReferences</find>
+      <find>TIME_VALUE_XPATH</find>
+      <find>concatenateTextSIL</find>
+      <find>curWordMorphemesConcatenated</find>
+      <find>evalua</find>
+      <find>newInst</find>
     </findStrings>
     <replaceStrings>
       <replace>\n</replace>
@@ -237,10 +233,10 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/AnnotationSorter.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java" />
       </list>
     </option>
   </component>
@@ -659,7 +655,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539965332747</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="minor refactoring and optimisation">
+      <created>1539971002228</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1539971002228</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -742,10 +745,15 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="minor refactoring, fixed error descriptions" />
     <MESSAGE value="table creation refactored" />
     <MESSAGE value="removed unused code, added timing" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed unused code, added timing" />
+    <MESSAGE value="minor refactoring and optimisation" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor refactoring and optimisation" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -758,7 +766,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java</url>
-          <line>716</line>
+          <line>703</line>
           <properties />
           <option name="timeStamp" value="125" />
         </line-breakpoint>
@@ -840,7 +848,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="165" />
+      <option name="time" value="166" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1164,26 +1172,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1485">
-          <caret line="57" column="51" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+        <state relative-caret-position="223">
+          <caret line="133" column="54" selection-start-line="133" selection-start-column="54" selection-end-line="133" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/utils/CommonUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="55" column="26" lean-forward="true" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/TransliterationHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
+        <state relative-caret-position="270">
           <caret line="193" column="43" selection-start-line="193" selection-start-column="43" selection-end-line="193" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1191,10 +1199,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/XMLElanTool.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="105" column="54" selection-start-line="105" selection-start-column="54" selection-end-line="105" selection-end-column="54" />
+        <state relative-caret-position="-8748">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#createTextSILTwoSpeakers#0;class#XMLFormatter#0" />
+            <element signature="method#createTextSimple#0;class#XMLFormatter#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/transliteration/EvenkiConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1203,28 +1222,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/eaf/EAFHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="255" column="16" selection-start-line="255" selection-start-column="16" selection-end-line="255" selection-end-column="16" />
+        <state relative-caret-position="166">
+          <caret line="48" column="89" lean-forward="true" selection-start-line="48" selection-start-column="89" selection-end-line="48" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#6416#6422#0" expanded="true" />
-            <element signature="e#6977#6983#0" expanded="true" />
-            <element signature="e#7443#7449#0" expanded="true" />
-            <element signature="e#8035#8041#0" expanded="true" />
-            <element signature="e#14965#14966#0" expanded="true" />
-            <element signature="e#14991#14992#0" expanded="true" />
-            <element signature="e#15031#15032#0" expanded="true" />
-            <element signature="e#15061#15062#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/msu/srcc/minlang/formatting/XMLFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="355" column="54" selection-start-line="355" selection-start-column="54" selection-end-line="355" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#14295#14296#0" expanded="true" />
+            <element signature="e#14321#14322#0" expanded="true" />
+            <element signature="e#14361#14362#0" expanded="true" />
+            <element signature="e#14391#14392#0" expanded="true" />
           </folding>
         </state>
       </provider>

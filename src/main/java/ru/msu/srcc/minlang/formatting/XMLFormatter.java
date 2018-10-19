@@ -21,14 +21,6 @@ import java.util.List;
 
 
 public class XMLFormatter {
-    private final static String TIER = "TIER";
-    private final static String TIER_ID = "TIER_ID";
-    private final static String PARENT_REF = "PARENT_REF";
-    private final static String ref1 = "TIME_SLOT_REF1";
-    private final static String ref2 = "TIME_SLOT_REF2";
-    private final static String anIdSIL = "ANNOTATION_ID";
-    private final static String anRefSIL = "ANNOTATION_REF";
-    private final static String ANNOTATION_ID = "ANNOTATION_ID";
     private static final String HTML_HEADER = "\n" +
             "<!doctype html>\n" +
             "<html>\n" +
@@ -420,7 +412,7 @@ public class XMLFormatter {
 
         if (isTableNecessary) {
             curWordGlossesConcatenated.append(gloss.getTextContent().trim());
-            curWordMorphemesConcatenated.append(morpheme.getTextContent().trim().replaceAll("-", ""));
+            curWordMorphemesConcatenated.append(morpheme.getTextContent().trim());
 
             if (prevTableStarted && isLastMorpheme) {
                 curWordGlossesConcatenated.append("</td></table>");
@@ -431,7 +423,7 @@ public class XMLFormatter {
             curWordGlossesConcatenated.append(gloss.getTextContent().trim());
 
             curWordMorphemesConcatenated.append(curDelimiter);
-            curWordMorphemesConcatenated.append(morpheme.getTextContent().trim().replaceAll("-", ""));
+            curWordMorphemesConcatenated.append(morpheme.getTextContent().trim());
         }
         return isTableNecessary;
     }
@@ -439,7 +431,7 @@ public class XMLFormatter {
     private String createTextSILTwoSpeakers() throws XMLElanException {
 
         String result = "<div class=\"gl-block\">\n";
-        List<Node> originalMessages = null;
+        List<Node> originalMessages;
         try {
             originalMessages = eafHelper.getTwoSpeakersOriginalMessages();
         } catch (XPathExpressionException e) {
@@ -495,7 +487,6 @@ public class XMLFormatter {
                     CommonUtils.formatMinSec(beg) + " &mdash; " + CommonUtils.formatMinSec(end) + "</div>\r\n" +
                     "<div class=\"data-container\">\r\n" +
                     "            <table class=\"gl-data\">\r\n";
-            int wordNum = allWords.size();
 
 
             String wordString = "<tr class=\"gl-data-tx-1\">\r\n";
@@ -503,10 +494,8 @@ public class XMLFormatter {
             String morphGlossString = "<tr class=\"gl-data-tx-3\">\r\n";
 
 
-            for (int j = 0; j < wordNum; ++j) {
-                Node curWord = allWords.get(j);
-
-                List<Node> morphemes = null;
+            for (Node curWord : allWords) {
+                List<Node> morphemes;
                 try {
                     morphemes = eafHelper.getTwoSpMorphemesByReference(eafHelper.getAnnotationId(curWord));
                 } catch (XPathExpressionException e) {
@@ -517,7 +506,7 @@ public class XMLFormatter {
                 String curWordMorphemes = "";
                 String curWordGlosses = "";
                 for (Node morpheme : morphemes) {
-                    Node gloss = null;
+                    Node gloss;
                     try {
                         gloss = eafHelper.getTwoSpGlossByReference(eafHelper.getAnnotationId(morpheme));
                     } catch (XPathExpressionException e) {
@@ -662,7 +651,7 @@ public class XMLFormatter {
         } catch (XPathExpressionException e) {
             throw new XMLElanException("Error getting original array:" + e.getMessage());
         }
-        List<Node> glosses = null;
+        List<Node> glosses;
         try {
             glosses = eafHelper.getTwoSpeakersGl();
         } catch (XPathExpressionException e) {

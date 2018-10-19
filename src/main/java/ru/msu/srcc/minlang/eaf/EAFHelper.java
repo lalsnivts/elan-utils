@@ -6,19 +6,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import ru.msu.srcc.minlang.XMLElanException;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.*;
 import java.util.*;
 
 public class EAFHelper {
-    private static final String ORIGINAL_TIER_NAME = "ev";
     private static final String SIL_ORIGINAL_TIER_NAME = "ev";
     private static final String SIL_FON_TIER_NAME = "fon";
     private static final String FON_TIER_NAME = "fon";
     private static final String SIL_FON_WORD_TIER_NAME = "fonWord";
-    private static final String FON_WORD_TIER_NAME = "fonWord";
     private static final String SIL_RUS_TIER_NAME = "rus";
     private static final String RUS_TIER_NAME = "rus";
     private static final String SIL_GLOSS_TIER_NAME = "gl";
@@ -34,9 +29,6 @@ public class EAFHelper {
     private static final String SECOND_FON_WORD_TIER_NAME = "fonWord2";
     private static final String SECOND_GLOSS_TIER_NAME = "gl2";
     private static final String SECOND_RUS_TIER_NAME = "rus2";
-    private final static String TIER = "TIER";
-    private final static String TIER_ID = "TIER_ID";
-    private final static String PARENT_REF = "PARENT_REF";
     private final static String ref1 = "TIME_SLOT_REF1";
     private final static String ref2 = "TIME_SLOT_REF2";
     private final static String anIdSIL = "ANNOTATION_ID";
@@ -57,19 +49,21 @@ public class EAFHelper {
     private Document doc;
     private NodeList allTiers;
     private Map<String, Node> allTiersMap = new HashMap<>();
+    private XPath xpath = XPathFactory.newInstance().newXPath();
+    private XPathExpression annotationValueExpression = null;
 
 
     public Node getTimeSlotByRef(String ref) throws XPathExpressionException {
         String timeSlotRefExpression = String.format("/ANNOTATION_DOCUMENT/TIME_SLOT[@TIME_SLOT_ID=\"%s\"", ref);
-        XPath xpath = XPathFactory.newInstance().newXPath();
         return (Node) xpath.evaluate(timeSlotRefExpression, doc, XPathConstants.NODE);
 
     }
 
     public List<String> getAnnotationValues(Node node) throws XPathExpressionException {
-        String annotationExpression = ".//ANNOTATION_VALUE";
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, node, XPathConstants.NODESET);
+        if (annotationValueExpression == null) {
+            annotationValueExpression = xpath.compile(".//ANNOTATION_VALUE");
+        }
+        NodeList nodeSet = (NodeList) annotationValueExpression.evaluate(node, XPathConstants.NODESET);
         List<String> annotationValues = new ArrayList<>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
             annotationValues.add(nodeSet.item(i).getTextContent());
@@ -79,7 +73,6 @@ public class EAFHelper {
 
     public String getAnnotationId(Node node) throws XPathExpressionException {
         String annotationIdExpression = ".//@ANNOTATION_ID";
-        XPath xpath = XPathFactory.newInstance().newXPath();
         Node annotationIdNode = (Node) xpath.evaluate(annotationIdExpression, node, XPathConstants.NODE);
         if (annotationIdNode == null) {
             return null;
@@ -90,7 +83,6 @@ public class EAFHelper {
 
     public String getTimeSlotRef(Node node) throws XPathExpressionException {
         String timeSlotRefExpression = ".//@" + ref1;
-        XPath xpath = XPathFactory.newInstance().newXPath();
         Node timeSlotNode = (Node) xpath.evaluate(timeSlotRefExpression, node, XPathConstants.NODE);
         if (timeSlotNode == null) {
             return null;
@@ -120,7 +112,6 @@ public class EAFHelper {
 
     public List<Long[]> getTimeArray() throws XPathExpressionException {
         List<Long[]> begEnds = new ArrayList<>();
-        XPath xpath = XPathFactory.newInstance().newXPath();
         NodeList timeValuesMS = ((NodeList) xpath.evaluate(TIME_VALUE_XPATH, doc, XPathConstants.NODESET));
         for (int i = 0; i < timeValuesMS.getLength() - 1; i += 2) {
             String beginStr = timeValuesMS.item(i).getTextContent();
@@ -147,7 +138,6 @@ public class EAFHelper {
 
     public List<Node> getAnnotationNodesByTierNameReference(Node tier, String reference) throws XPathExpressionException {
         String annotationExpression = String.format(ANNOTATIONS_BY_REF_XPATH, reference);
-        XPath xpath = XPathFactory.newInstance().newXPath();
         NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, tier, XPathConstants.NODESET);
         List<Node> annotations = new ArrayList<Node>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
@@ -158,9 +148,8 @@ public class EAFHelper {
 
     public List<Node> getAnnotationNodesByTierName(String tierName) throws XPathExpressionException {
         String annotationExpression = String.format(ANNOTATIONS_BY_TIER_XPATH, tierName);
-        XPath xpath = XPathFactory.newInstance().newXPath();
         NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, doc, XPathConstants.NODESET);
-        List<Node> annotations = new ArrayList<Node>();
+        List<Node> annotations = new ArrayList<>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
             annotations.add(nodeSet.item(i));
         }
@@ -169,36 +158,22 @@ public class EAFHelper {
 
 
     public List<Node> getAnnotationNodesByTier(Node tier) throws XPathExpressionException {
-        XPath xpath = XPathFactory.newInstance().newXPath();
         NodeList nodeSet = (NodeList) xpath.evaluate(CHILD_ANNOTATIONS_XPATH, tier, XPathConstants.NODESET);
-        List<Node> annotations = new ArrayList<Node>();
+        List<Node> annotations = new ArrayList<>();
         for (int i = 0; i < nodeSet.getLength(); i++) {
             annotations.add(nodeSet.item(i));
         }
         return annotations;
     }
 
-
-    public List<Node> getAnnotationNodesByReference(String tierId, String reference) throws XPathExpressionException {
-        String annotationExpression = String.format(ANNOTATIONS_BY_TIER_REF_XPATH, tierId, reference);
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        NodeList nodeSet = (NodeList) xpath.evaluate(annotationExpression, doc, XPathConstants.NODESET);
-        List<Node> annotations = new ArrayList<Node>();
-        for (int i = 0; i < nodeSet.getLength(); i++) {
-            annotations.add(nodeSet.item(i));
-        }
-        return annotations;
-    }
 
     public Node getOneAnnotationNodeByTierNameReference(String tierId, String reference) throws XPathExpressionException {
         String annotationExpression = String.format(ANNOTATIONS_BY_TIER_REF_XPATH, tierId, reference);
-        XPath xpath = XPathFactory.newInstance().newXPath();
         return (Node) xpath.evaluate(annotationExpression, doc, XPathConstants.NODE);
     }
 
     public Node getOneAnnotationNodeByReferenceFromTier(Node tier, String reference) throws XPathExpressionException {
         String annotationExpression = String.format(ANNOTATIONS_BY_REF_XPATH, reference);
-        XPath xpath = XPathFactory.newInstance().newXPath();
         return (Node) xpath.evaluate(annotationExpression, tier, XPathConstants.NODE);
     }
 
@@ -369,7 +344,6 @@ public class EAFHelper {
             try {
                 Node node1TimeSlotRef = getTimeSlotByRef(getTimeSlotRef(o1));
                 Node node2TimeSlotRef = getTimeSlotByRef(getTimeSlotRef(o2));
-                XPath xpath = XPathFactory.newInstance().newXPath();
 
                 Long timeValue1 = Long.parseLong(((Node) xpath.evaluate("@TIME_VALUE", node1TimeSlotRef, XPathConstants.NODE)).getTextContent());
                 Long timeValue2 = Long.parseLong(((Node) xpath.evaluate("@TIME_VALUE", node2TimeSlotRef, XPathConstants.NODE)).getTextContent());

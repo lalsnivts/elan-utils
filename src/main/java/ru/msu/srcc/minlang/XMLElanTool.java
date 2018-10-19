@@ -33,8 +33,8 @@ public class XMLElanTool {
     private JCheckBox isSilCheckBox;
     private JCheckBox isTwoSpeakersCheckBox;
     private JCheckBox isArchive;
-    private Cursor waitCursor = new Cursor(3);
-    private Cursor defaultCursor = new Cursor(0);
+    private Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+    private Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 
     public XMLElanTool() {
         initializeMyFrame();
@@ -117,8 +117,8 @@ public class XMLElanTool {
                 }
                 JOptionPane.showMessageDialog(textPanel, String.format("New file created: %s",
                         newFile.getAbsolutePath()));
-            } catch (XMLElanException xee) {
-                reportException(xee.getMessage());
+            } catch (Exception ex) {
+                reportException(ex.getMessage());
             } finally {
                 textPanel.setCursor(defaultCursor);
             }
@@ -140,8 +140,8 @@ public class XMLElanTool {
                 JOptionPane.showMessageDialog(textPanel, String.format("Files created: %s",
                         String.join("\n", filePaths)));
 
-            } catch (XMLElanException xee) {
-                reportException(xee.getMessage());
+            } catch (Exception ex) {
+                reportException(ex.getMessage());
             } finally {
                 textPanel.setCursor(defaultCursor);
             }
@@ -173,10 +173,10 @@ public class XMLElanTool {
                     xmlFormatter.setAllTiers(transliterationHelper.getAllTiers());
                     xmlFormatter.setDoc(transliterationHelper.getDoc());
                     xmlFormatter.setOldFileName(selected.getAbsolutePath());
-                } catch (XMLElanException xee) {
-                    reportException(xee.getMessage());
+                } catch (Exception ex) {
+                    reportException(ex.getMessage());
                 } finally {
-                    myFrame.setCursor(defaultCursor);
+                    textPanel.setCursor(defaultCursor);
                 }
         }
     }
