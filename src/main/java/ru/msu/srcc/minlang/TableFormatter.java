@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +33,7 @@ public class TableFormatter extends CommonBookFormatter {
     private org.docx4j.wml.ObjectFactory factory;
     private PPrBase.Spacing spacing;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             new TableFormatter().formatTablesFromFile("D://ForElan//Book//KetTexts//KetTexts_2015//Котусова_ML.docx");
         } catch (Docx4JException e) {
@@ -56,7 +57,7 @@ public class TableFormatter extends CommonBookFormatter {
         WordprocessingMLPackage inWordMLPackage = WordprocessingMLPackage.load(new File(inputFilename));
         MainDocumentPart inDocumentPart = inWordMLPackage.getMainDocumentPart();
 
-        PrintWriter writer = new PrintWriter("D:\\out.xml", "UTF-8");
+        PrintWriter writer = new PrintWriter("D:\\out.xml", StandardCharsets.UTF_8);
 
         writer.println(XmlUtils.marshaltoString(inDocumentPart.getJaxbElement(), true, true));
         writer.close();
@@ -141,7 +142,7 @@ public class TableFormatter extends CommonBookFormatter {
         Tr row3 = (Tr) rows.get(2);
 
 
-        Tr newRows[] = new Tr[3];
+        Tr[] newRows = new Tr[3];
         TblCreationResult result = new TblCreationResult();
 
 
@@ -264,12 +265,6 @@ public class TableFormatter extends CommonBookFormatter {
                         R subObjAsR = (R) subObj;
 
                         for (Object subSubObj : subObjAsR.getContent()) {
-
-                            if (lastSentenceNum == 7) {
-                                int aaa = 9;
-                            }
-
-
                             if (subSubObj instanceof JAXBElement) {
                                 if (((JAXBElement) subSubObj).getValue() instanceof Text) {
                                     Text value = (Text) ((JAXBElement) subSubObj).getValue();
