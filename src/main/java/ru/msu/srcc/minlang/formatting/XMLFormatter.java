@@ -6,6 +6,7 @@ import org.w3c.dom.NodeList;
 import ru.msu.srcc.minlang.XMLElanException;
 import ru.msu.srcc.minlang.eaf.EAFHelper;
 import ru.msu.srcc.minlang.utils.CommonUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -96,6 +98,7 @@ public class XMLFormatter {
         return Collections.singletonList(xmlFilePath);
     }
 
+
     public void setAllTiers(NodeList allTiers) {
         this.eafHelper.setAllTiers(allTiers);
     }
@@ -103,6 +106,59 @@ public class XMLFormatter {
     public void setDoc(Document doc) {
         eafHelper.setDoc(doc);
     }
+
+    public List<String> checkGlosses(boolean isSil, boolean isTwoSpeakers, boolean isArchive) throws XMLElanException {
+        if (isSil) {
+            throw new NotImplementedException();
+        }
+        return checkGlossesSimple();
+    }
+
+
+    private List<String> checkGlossesSimple() throws XMLElanException {
+        List<String> errors = new ArrayList<>();
+        List<String> glSentences = eafHelper.getGlossArray();
+        List<String> fonSentences = eafHelper.getFonArray();
+
+
+        int fonNum = fonSentences.size();
+
+
+        if (fonNum != glSentences.size()) {
+            throw new IllegalArgumentException(
+                    String.format("Bad file: number of morpheme annotations (%s) " +
+                                    "!= number of gloss annotations (%s) ",
+                            fonNum, glSentences.size()));
+        }
+        for (int i = 0; i < fonNum; ++i) {
+            String allWords[] = CommonUtils.tokenizeSentence(fonSentences.get(i));
+            String allGlosses[] = CommonUtils.tokenizeSentence(glSentences.get(i));
+
+            int wordNum = allWords.length;
+            if (wordNum != allGlosses.length) {
+                errors.add(String.format("number of words (%s) != number of glosses (%s) " +
+                                "for sentence # %s (%s : %s)",
+                        wordNum, allGlosses.length, i, fonSentences.get(i), glSentences.get(i)));
+                continue;
+            }
+
+
+            for (int j = 0; j < wordNum; ++j) {
+                String curWord = allWords[j];
+                String[] morphemes = curWord.split("[-=]");
+                String[] morphGlosses = allGlosses[j].split("[-=]");
+                if (morphemes.length != morphGlosses.length) {
+                    errors.add(String.format("number of morphemes (%s) != number of glosses (%s) " +
+                                    "for sentence # %s (%s) for word %s : %s)",
+                            morphemes.length, morphGlosses.length, i, fonSentences.get(i), curWord, allGlosses[j]));
+                }
+
+            }
+
+        }
+        return errors;
+    }
+
 
     private String saveDocumentToFile(boolean isSil, boolean isTwoSpeakers, boolean isArchive) throws XMLElanException {
         String html = createDocumentHTML(isSil, isTwoSpeakers, isArchive);

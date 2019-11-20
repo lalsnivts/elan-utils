@@ -54,7 +54,7 @@ public class EAFHelper {
 
 
     public Node getTimeSlotByRef(String ref) throws XPathExpressionException {
-        String timeSlotRefExpression = String.format("/ANNOTATION_DOCUMENT/TIME_SLOT[@TIME_SLOT_ID=\"%s\"", ref);
+        String timeSlotRefExpression = String.format("/ANNOTATION_DOCUMENT/TIME_ORDER/TIME_SLOT[@TIME_SLOT_ID=\"%s\"]", ref);
         return (Node) xpath.evaluate(timeSlotRefExpression, doc, XPathConstants.NODE);
 
     }
@@ -82,7 +82,7 @@ public class EAFHelper {
 
 
     public String getTimeSlotRef(Node node) throws XPathExpressionException {
-        String timeSlotRefExpression = ".//@" + ref1;
+        String timeSlotRefExpression = "./ALIGNABLE_ANNOTATION/@" + ref1;
         Node timeSlotNode = (Node) xpath.evaluate(timeSlotRefExpression, node, XPathConstants.NODE);
         if (timeSlotNode == null) {
             return null;
@@ -210,6 +210,9 @@ public class EAFHelper {
 
     public List<Node> getCommentsByReference(String reference) throws XPathExpressionException {
         Node tierComments = allTiersMap.get(COMMENT_TIER_NAME);
+        if (tierComments == null) {
+            return new ArrayList<>();
+        }
         return getAnnotationNodesByTierNameReference(tierComments, reference);
     }
 
@@ -345,10 +348,19 @@ public class EAFHelper {
                 Node node1TimeSlotRef = getTimeSlotByRef(getTimeSlotRef(o1));
                 Node node2TimeSlotRef = getTimeSlotByRef(getTimeSlotRef(o2));
 
-                Long timeValue1 = Long.parseLong(((Node) xpath.evaluate("@TIME_VALUE", node1TimeSlotRef, XPathConstants.NODE)).getTextContent());
-                Long timeValue2 = Long.parseLong(((Node) xpath.evaluate("@TIME_VALUE", node2TimeSlotRef, XPathConstants.NODE)).getTextContent());
+                Node timeValue1 = ((Node) xpath.evaluate("@TIME_VALUE", node1TimeSlotRef, XPathConstants.NODE));
+                Node timeValue2 = ((Node) xpath.evaluate("@TIME_VALUE", node2TimeSlotRef, XPathConstants.NODE));
 
-                return (int) (timeValue1 - timeValue2);
+                if (timeValue1 == null) {
+                    System.out.println(getTimeSlotRef(o1));
+                }
+                if (timeValue2 == null) {
+                    System.out.println(getTimeSlotRef(o2));
+                }
+                Long timeValue1Long = Long.parseLong(timeValue1.getTextContent());
+                Long timeValue2Long = Long.parseLong(timeValue2.getTextContent());
+
+                return (int) (timeValue1Long - timeValue2Long);
             } catch (XPathExpressionException e) {
                 e.printStackTrace();
                 return 0;

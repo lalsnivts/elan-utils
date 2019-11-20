@@ -60,9 +60,11 @@ public class ElanBookExporter {
         }                   */
 
         ElanBookExporter elanBookExporter = new ElanBookExporter();
-        elanBookExporter.exportOldEafForBook("D:\\ForElan\\OldMethod\\1998_Sovrechka_Saygotina_Vera_LR\\" +
+       /* elanBookExporter.exportOldEafForBook("D:\\ForElan\\OldMethod\\1998_Sovrechka_Saygotina_Vera_LR\\" +
                         "1998_Sovrechka_Saygotina_Vera_LR_transliterated_new2.eaf",
-                "ev");
+                "ev");                             */
+        elanBookExporter.exportEafForBook("D:\\ForElan\\OldMethod\\2007_Strelka_Andreeva_LR8\\2007_Strelka_Andreeva_LR8.eaf_new.eaf",
+                "ev", false);
 
 
     }

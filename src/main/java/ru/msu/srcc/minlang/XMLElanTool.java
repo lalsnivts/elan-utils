@@ -29,6 +29,7 @@ public class XMLElanTool {
     private TransliterationHelper transliterationHelper = new TransliterationHelper();
     private XMLFormatter xmlFormatter = new XMLFormatter();
     private JButton addTransliterationButton;
+    private JButton checkGlossesButton;
     private JButton saveToHTMLFormat;
     private JCheckBox isSilCheckBox;
     private JCheckBox isTwoSpeakersCheckBox;
@@ -70,15 +71,21 @@ public class XMLElanTool {
         addTransliterationButton.addActionListener(new AddTransliterationListener());
         saveToHTMLFormat = new JButton("Save to HTML");
         saveToHTMLFormat.setEnabled(false);
-        saveToHTMLFormat.addActionListener(new SaveToXMLListener());
+        saveToHTMLFormat.addActionListener(new SaveToHTMLListener());
         isSilCheckBox = new JCheckBox("is sil", true);
         isTwoSpeakersCheckBox = new JCheckBox("two speakers");
         isArchive = new JCheckBox("is archive");
+
+        checkGlossesButton = new JButton("Check glosses");
+        checkGlossesButton.setEnabled(false);
+        checkGlossesButton.addActionListener(new CheckGlossesListener());
+
         JPanel buttonsAndTextField = new JPanel();
         buttonsAndTextField.setLayout(new BoxLayout(buttonsAndTextField, BoxLayout.X_AXIS));
         buttonsAndTextField.add(openFileButton);
         buttonsAndTextField.add(addTransliterationButton);
         buttonsAndTextField.add(saveToHTMLFormat);
+        buttonsAndTextField.add(checkGlossesButton);
         buttonsAndTextField.add(newTierName);
         buttonsAndTextField.add(isSilCheckBox);
         buttonsAndTextField.add(isTwoSpeakersCheckBox);
@@ -125,7 +132,7 @@ public class XMLElanTool {
         }
     }
 
-    private class SaveToXMLListener
+    private class SaveToHTMLListener
             implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
@@ -136,9 +143,30 @@ public class XMLElanTool {
                         isArchive.isSelected());
                 LocalDateTime end = LocalDateTime.now();
                 long diff = ChronoUnit.MILLIS.between(start, end);
-                System.out.println(String.format("saved to files: %s milliseconds", diff));
-                JOptionPane.showMessageDialog(textPanel, String.format("Files created: %s",
-                        String.join("\n", filePaths)));
+                JOptionPane.showMessageDialog(textPanel, String.format("Files created: %s in %s milliseconds",
+                        String.join("\n", filePaths), diff));
+
+            } catch (Exception ex) {
+                reportException(ex.getMessage());
+            } finally {
+                textPanel.setCursor(defaultCursor);
+            }
+        }
+    }
+
+    private class CheckGlossesListener
+            implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                LocalDateTime start = LocalDateTime.now();
+                textPanel.setCursor(waitCursor);
+                List<String> errors = xmlFormatter.checkGlosses(isSilCheckBox.isSelected(),
+                        isTwoSpeakersCheckBox.isSelected(),
+                        isArchive.isSelected());
+                LocalDateTime end = LocalDateTime.now();
+                long diff = ChronoUnit.MILLIS.between(start, end);
+                JOptionPane.showMessageDialog(textPanel, String.format("Errors found: %s in %s milliseconds",
+                        String.join("\n", errors), diff));
 
             } catch (Exception ex) {
                 reportException(ex.getMessage());
@@ -170,6 +198,7 @@ public class XMLElanTool {
                     allTiersList.setListData(allTiersListValue.toArray());
                     addTransliterationButton.setEnabled(true);
                     saveToHTMLFormat.setEnabled(true);
+                    checkGlossesButton.setEnabled(true);
                     xmlFormatter.setAllTiers(transliterationHelper.getAllTiers());
                     xmlFormatter.setDoc(transliterationHelper.getDoc());
                     xmlFormatter.setOldFileName(selected.getAbsolutePath());
