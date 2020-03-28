@@ -20,9 +20,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TransliterationHelper {
     private Set<String> tierNames;
@@ -52,11 +50,19 @@ public class TransliterationHelper {
             NamedNodeMap attributes = node.getAttributes();
             Node nameAttrib = attributes.getNamedItem("TIER_ID");
             if (nameAttrib.getNodeValue().equals(tierToTransliterate)) {
-                String currentTierType = attributes.getNamedItem("LINGUISTIC_TYPE_REF").getNodeValue();
-                Element newTier = createNewTier(doc, newTierName, currentTierType);
+                String oldParentTierName = attributes.getNamedItem("PARENT_REF").getNodeValue();
+                Node oldParentTier = findTierByName(allTiers, oldParentTierName);
+                if (oldParentTier == null) {
+                    throw new XMLElanException("Cannot find parent tier: " + oldParentTierName);
+                }
+                String currentTierParentTierType = oldParentTier.getAttributes()
+                        .getNamedItem("LINGUISTIC_TYPE_REF").getNodeValue();
+                Element newTier = createNewTier(doc, newTierName, currentTierParentTierType);
                 addNewTier(doc, newTier);
+                changeParent(allTiers, oldParentTierName, newTierName);
                 try {
                     convert(doc, newTier, isSil);
+                    changePreviousParentTier(doc, oldParentTier, newTier, oldParentTierName, newTierName);
                     return saveFile(doc);
                 } catch (Exception e) {
                     throw new XMLElanException(String.format("Error occurred during transliteration: %s",
@@ -66,6 +72,135 @@ public class TransliterationHelper {
         }
         throw new XMLElanException(String.format("No tier to transliterate found: %s", tierToTransliterate));
     }
+
+    private void changePreviousParentTier(Document doc, Node oldParentTier, Node newParentTier,
+                                          String oldParentTierName,
+                                          String newParentTierName) throws XMLElanException {
+        String currentTierName = oldParentTierName + "type";
+        Element newTierType = createNewTierType(doc, currentTierName, "Symbolic_Association",
+                "false", "false");
+        addNewTierType(doc, newTierType);
+        NamedNodeMap attributes = oldParentTier.getAttributes();
+        Node nameAttribType = attributes.getNamedItem("LINGUISTIC_TYPE_REF");
+        nameAttribType.setNodeValue(currentTierName);
+        Node nameAttribParent = attributes.getNamedItem("PARENT_REF");
+        boolean hadNoParentNodePreviously = false;
+        if (nameAttribParent == null) {
+            nameAttribParent = doc.createAttribute("PARENT_REF");
+            attributes.setNamedItem(nameAttribParent);
+            hadNoParentNodePreviously = true;
+        }
+        nameAttribParent.setNodeValue(newParentTierName);
+        if (hadNoParentNodePreviously) {
+            changeChildAnnotations(newParentTierName, oldParentTier, newParentTier);
+        }
+    }
+
+    private void changeChildAnnotations(String newParentTierName, Node oldParentTier, Node newParentTier) throws XMLElanException {
+        Map<String, String> oldNewAttributeIds = new HashMap<>();
+
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        String allAnnotationsExpression = "./ANNOTATION";
+        String allAlignableAnnotationsExpression = "./ANNOTATION/ALIGNABLE_ANNOTATION";
+        NodeList annotationsParentTier;
+        try {
+            annotationsParentTier = (NodeList) xpath.evaluate(allAnnotationsExpression, oldParentTier,
+                    XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+            throw new XMLElanException("Cannot find annotations for oldParentTier: " + oldParentTier);
+        }
+        NodeList alignableAnnotationsNewParentTier = null;
+        try {
+            alignableAnnotationsNewParentTier = (NodeList) xpath.evaluate(allAlignableAnnotationsExpression,
+                    newParentTier,
+                    XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+            throw new XMLElanException("Cannot find annotations for newParentTier: " + newParentTier);
+        }
+        if (annotationsParentTier.getLength() != alignableAnnotationsNewParentTier.getLength()) {
+            throw new XMLElanException("Different number of annotations: " + annotationsParentTier.getLength() +
+                    " and " + alignableAnnotationsNewParentTier.getLength());
+        }
+
+        for (int i = 0; i < annotationsParentTier.getLength(); ++i) {
+            Node oldParentAnnotation = annotationsParentTier.item(i);
+            Node newParentAlignableAnnotation = alignableAnnotationsNewParentTier.item(i);
+            String annotationExpression = "./ALIGNABLE_ANNOTATION/ANNOTATION_VALUE";
+            Node annotationValueNode = null;
+            Node alignableAnnotationNode = null;
+            try {
+                annotationValueNode = (Node) xpath.evaluate(annotationExpression, oldParentAnnotation,
+                        XPathConstants.NODE);
+                alignableAnnotationNode = annotationValueNode.getParentNode();
+            } catch (XPathExpressionException e) {
+                throw new XMLElanException("Cannot find alignable annotation for annotation: " + oldParentAnnotation);
+            }
+            String parentAnnotationId = newParentAlignableAnnotation.getAttributes().
+                    getNamedItem("ANNOTATION_ID").getNodeValue();
+
+            String tierId = alignableAnnotationNode.getAttributes().getNamedItem("ANNOTATION_ID").getNodeValue();
+            oldParentAnnotation.removeChild(alignableAnnotationNode);
+            Node newParentAnnotation = doc.createElement("REF_ANNOTATION");
+            Node annotationIdAttribute = doc.createAttribute("ANNOTATION_ID");
+            Node annotationRefAttribute = doc.createAttribute("ANNOTATION_REF");
+            annotationIdAttribute.setNodeValue(tierId);
+            annotationRefAttribute.setNodeValue(parentAnnotationId);
+            newParentAnnotation.getAttributes().setNamedItem(annotationIdAttribute);
+            newParentAnnotation.getAttributes().setNamedItem(annotationRefAttribute);
+            newParentAnnotation.appendChild(annotationValueNode);
+            oldParentAnnotation.appendChild(newParentAnnotation);
+
+            oldNewAttributeIds.put(tierId, parentAnnotationId);
+        }
+        changeChildAnnotationReferences(doc, newParentTierName, oldNewAttributeIds);
+    }
+
+    private void changeChildAnnotationReferences(Document doc, String newTierTypeName, Map<String, String> oldNewAttributeIds) throws XMLElanException {
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        String allRefAnnotationsExpression = "//TIER[@PARENT_REF='" + newTierTypeName + "']/ANNOTATION/REF_ANNOTATION";
+        NodeList refAnnotations;
+        try {
+            refAnnotations = (NodeList) xpath.evaluate(allRefAnnotationsExpression, doc,
+                    XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+            throw new XMLElanException("Cannot find ref annotations");
+        }
+        for (int i = 0; i < refAnnotations.getLength(); ++i) {
+            Node refAnnotation = refAnnotations.item(i);
+            Node refAnnotationAttribute = refAnnotation.getAttributes().getNamedItem("ANNOTATION_REF");
+            String refAnnotationId = refAnnotationAttribute.getNodeValue();
+            String newAnnotationId = oldNewAttributeIds.get(refAnnotationId);
+            if (newAnnotationId != null) {
+                refAnnotationAttribute.setNodeValue(newAnnotationId);
+            }
+        }
+    }
+
+
+    private void changeParent(NodeList allTiers, String oldParentTierName, String newParentTierName) {
+        for (int i = 0; i < allTiers.getLength(); ++i) {
+            Node node = allTiers.item(i);
+            NamedNodeMap attributes = node.getAttributes();
+            Node nameAttrib = attributes.getNamedItem("PARENT_REF");
+            if (nameAttrib != null && nameAttrib.getNodeValue() != null && nameAttrib.getNodeValue().
+                    equals(oldParentTierName)) {
+                nameAttrib.setNodeValue(newParentTierName);
+            }
+        }
+    }
+
+    private Node findTierByName(NodeList allTiers, String tierName) {
+        for (int i = 0; i < allTiers.getLength(); ++i) {
+            Node node = allTiers.item(i);
+            NamedNodeMap attributes = node.getAttributes();
+            Node nameAttrib = attributes.getNamedItem("TIER_ID");
+            if (nameAttrib.getNodeValue().equals(tierName)) {
+                return node;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * creates new annotations consisting of words which are concatenated into a single sentence
@@ -261,9 +396,12 @@ public class TransliterationHelper {
         }
     }
 
-    //TODO: recombine the other tiers
     private void addNewTier(Document doc, Element newTier) {
         doc.getFirstChild().appendChild(newTier);
+    }
+
+    private void addNewTierType(Document doc, Element newTierType) {
+        doc.getFirstChild().appendChild(newTierType);
     }
 
     private Element createNewTier(Document doc, String newTierName, String newTierType) {
@@ -272,6 +410,16 @@ public class TransliterationHelper {
         newTier.setAttribute("DEFAULT_LOCALE", "ru");
         newTier.setAttribute("LINGUISTIC_TYPE_REF", newTierType);
         return newTier;
+    }
+
+    private Element createNewTierType(Document doc, String tierTypeName, String tierConstraint,
+                                      String graphicReferences, String timeAlignable) {
+        Element newTierType = doc.createElement("LINGUISTIC_TYPE");
+        newTierType.setAttribute("CONSTRAINTS", tierConstraint);
+        newTierType.setAttribute("GRAPHIC_REFERENCES", graphicReferences);
+        newTierType.setAttribute("LINGUISTIC_TYPE_ID", tierTypeName);
+        newTierType.setAttribute("TIME_ALIGNABLE", timeAlignable);
+        return newTierType;
     }
 
     private File saveFile(Document doc) throws XMLElanException {

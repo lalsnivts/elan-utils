@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -157,6 +159,8 @@ public class XMLElanTool {
     private class CheckGlossesListener
             implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            FileWriter fileWriter = null;
+            PrintWriter printWriter = null;
             try {
                 LocalDateTime start = LocalDateTime.now();
                 textPanel.setCursor(waitCursor);
@@ -167,11 +171,20 @@ public class XMLElanTool {
                 long diff = ChronoUnit.MILLIS.between(start, end);
                 JOptionPane.showMessageDialog(textPanel, String.format("Errors found: %s in %s milliseconds",
                         String.join("\n", errors), diff));
+                fileWriter = new FileWriter(xmlFormatter.getOldFileName() + "_errors.txt");
+                printWriter = new PrintWriter(fileWriter);
+                for (String error : errors) {
+                    printWriter.println(error);
+                }
+
 
             } catch (Exception ex) {
                 reportException(ex.getMessage());
             } finally {
                 textPanel.setCursor(defaultCursor);
+                if (printWriter != null) {
+                    printWriter.close();
+                }
             }
         }
     }
